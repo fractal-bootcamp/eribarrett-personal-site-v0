@@ -19,3 +19,11 @@ model Post {
     // When true, the post is publicly accessible on the blog.
     createdAt DateTime @default(now())
 }
+
+model Project {
+    id          String @id @default(cuid())
+    title       String
+    description String
+    image       String
+    link        String
+}
