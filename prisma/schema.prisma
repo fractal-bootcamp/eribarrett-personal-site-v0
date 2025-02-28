@@ -3,16 +3,16 @@ generator client {
 }
 
 datasource db {
-    provider = "postgresql"
+    provider = "sqlite"
     url      = env("DATABASE_URL")
 }
 
 model Post {
     id        String   @id @default(cuid())
     title     String
-    content   String   @db.Text
+    content   String
     slug      String   @unique
-    excerpt   String?  @db.Text
+    excerpt   String?
     published Boolean  @default(false)
     // The published field is used to control whether a post is visible to users.
     // When false, the post is in draft mode and only visible to administrators.

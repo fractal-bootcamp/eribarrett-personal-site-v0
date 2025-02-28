@@ -16,6 +16,7 @@ const createContext = async (req: NextRequest) => {
 };
 
 const handler = (req: NextRequest) =>
+  // do some stuff before the request goes to the trpc router (eg middleware)
   fetchRequestHandler({
     endpoint: "/api/trpc",
     req,
@@ -24,10 +25,10 @@ const handler = (req: NextRequest) =>
     onError:
       env.NODE_ENV === "development"
         ? ({ path, error }) => {
-            console.error(
-              `❌ tRPC failed on ${path ?? "<no-path>"}: ${error.message}`
-            );
-          }
+          console.error(
+            `❌ tRPC failed on ${path ?? "<no-path>"}: ${error.message}`
+          );
+        }
         : undefined,
   });
 

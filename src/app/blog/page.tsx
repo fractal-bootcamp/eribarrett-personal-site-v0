@@ -20,29 +20,7 @@ export const metadata = {
 export default async function BlogPage() {
     // You can fetch blog posts from your API here
     // For now, we'll use dummy data
-    const posts = [
-        {
-            id: 1,
-            title: "Getting Started with Next.js",
-            excerpt: "Learn how to build modern web applications with Next.js",
-            date: "2023-05-15",
-            slug: "getting-started-with-nextjs",
-        },
-        {
-            id: 2,
-            title: "Why I Love TypeScript",
-            excerpt: "The benefits of using TypeScript in your projects",
-            date: "2023-06-22",
-            slug: "why-i-love-typescript",
-        },
-        {
-            id: 3,
-            title: "Building UI Components with Shadcn",
-            excerpt: "A guide to creating reusable UI components with Shadcn",
-            date: "2023-07-10",
-            slug: "building-ui-components-with-shadcn",
-        },
-    ];
+    const posts = await api.post.getAll()
 
     return (
         <HydrateClient>
@@ -56,7 +34,7 @@ export default async function BlogPage() {
                             className="rounded-lg border border-gray-200 p-6 shadow-sm transition-all hover:shadow-md dark:border-gray-800"
                         >
                             <time className="text-sm text-gray-500 dark:text-gray-400">
-                                {post.date}
+                                {post.createdAt.toLocaleDateString()}
                             </time>
                             <h2 className="mt-2 text-2xl font-semibold">
                                 <Link

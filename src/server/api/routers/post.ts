@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
+import { createTRPCRouter, protectedProcedure, publicProcedure } from "~/server/api/trpc";
 
 export const postRouter = createTRPCRouter({
   hello: publicProcedure
@@ -33,5 +33,27 @@ export const postRouter = createTRPCRouter({
     });
 
     return post ?? null;
+  }),
+
+  getBySlug: publicProcedure.input(z.object({ slug: z.string() })).query(async ({ ctx, input }) => {
+    const post = await ctx.db.post.findFirst({
+      where: { slug: input.slug },
+    });
+
+    return post ?? null;
+  }),
+
+  getAll: publicProcedure.query(async ({ ctx }) => {
+    const posts = await ctx.db.post.findMany({
+      orderBy: { createdAt: "desc" },
+    });
+
+    return posts
+  }),
+
+  protected: protectedProcedure.query(async ({ ctx }) => {
+    return {
+      message: "You are authenticated",
+    };
   }),
 });
