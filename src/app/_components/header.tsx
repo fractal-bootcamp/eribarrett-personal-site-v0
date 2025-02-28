@@ -13,25 +13,25 @@ export default function Header() {
             <div className="flex items-center gap-4 px-6 border-l border-b border-gray-800 h-[70px]">
                 <Link
                     href="/development"
-                    className="border border-dashed rounded-full border-gray-500 px-5 py-2 text-sm hover:bg-gray-900 transition-colors"
+                    className="border-dashed border-2 rounded-full bg-black bg-opacity-25 border-gray-600 px-5 py-2 text-sm hover:bg-black hover:bg-opacity-60 transition-colors"
                 >
                     DEVELOPMENT
                 </Link>
                 <Link
                     href="/music"
-                    className="border border-dashed rounded-full border-gray-500 px-5 py-2 text-sm hover:bg-gray-900 transition-colors"
+                    className="border-dashed border-2 rounded-full  bg-black bg-opacity-25 border-gray-600 px-5 py-2 text-sm hover:bg-black hover:bg-opacity-60 transition-colors"
                 >
                     MUSIC
                 </Link>
                 <Link
                     href="/visualize"
-                    className="border border-dashed rounded-full border-gray-500 px-5 py-2 text-sm hover:bg-gray-900 transition-colors"
+                    className="border-dashed border-2 rounded-full  bg-black bg-opacity-25 border-gray-600 px-5 py-2 text-sm hover:bg-black hover:bg-opacity-60 transition-colors"
                 >
                     VISUALIZE
                 </Link>
                 <Link
                     href="/blog"
-                    className="border border-dashed rounded-full border-gray-500 px-5 py-2 text-sm hover:bg-gray-900 transition-colors"
+                    className="border-dashed border-2 rounded-full bg-black bg-opacity-25 border-gray-600 px-5 py-2 text-sm hover:bg-black hover:bg-opacity-60 transition-colors"
                 >
                     BLOG
                 </Link>
