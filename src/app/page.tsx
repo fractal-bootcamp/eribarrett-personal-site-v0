@@ -17,8 +17,8 @@ export default function Home() {
     <div className="flex flex-col h-screen bg-red-200 text-white font-mono">
       {/* Header */}
       <header className="flex items-center border-b border-gray-800">
-        <div className="w-[70px] h-[70px] bg-[url('/images/princess.png')] flex items-center justify-center bg-full border-r border-gray-800">
-          <div className="w-8 h-8 rounded-full border-2 border-black"></div>
+        <div className="w-[70px] h-[70px] bg-[url('/images/princess.png')] flex items-center justify-center bg-cover bg-center border-r border-gray-800 hover:bg-opacity-70 transition-shadow">
+
         </div>
         <Link href="/" className="flex-1 flex justify-center text-xl tracking-wider py-5  border-x-yellow-200 border-x-8 border-b-2 border-b-gray-800 bg-black bg-opacity-40 hover:bg-opacity-70 transition-shadow" >
           e r i . d e v</Link>
@@ -67,8 +67,11 @@ export default function Home() {
             <span>+</span>
           </div> */}
 
-          <div className="flex-col flex">
-            <ScrollArea className="w-full h-[2000px] overflow-y-auto">
+          <div
+            style={{ position: "relative", zIndex: 10, overflowY: "auto", height: "100%" }}
+            className="flex flex-col flex-1"
+          >
+            <ScrollArea className="w-full h-full overflow">
               <div className="w-full h-full relative overflow-x-auto">
                 <ScrollArea className="w-full">
                   <div className="flex space-x-0">
@@ -79,7 +82,7 @@ export default function Home() {
                         className="h-50"
                         alt="Spy image"
                         width={400}
-                        height={10}
+                        height={800}
                         style={{ opacity: 0.5 }}
                       />
                     ))}
@@ -90,7 +93,7 @@ export default function Home() {
 
               {/* Pixel Art Letters */}
 
-              <div className="h-full pt-8 pb-8 px-4 relative min-w-[1200px] h-full relative">
+              <div className="h-full pt-8 pb-8 px-4 min-w-[1200px] overflow relative">
                 {/* A - left */}
                 <div className="absolute left-[180px] top-[160px] text-white">
                   <PixelLetter letter="A" />
@@ -140,6 +143,13 @@ export default function Home() {
                 <div className="absolute left-[300px] top-[130px] text-gray-500">3</div>
               </div>
               <ScrollBar orientation="vertical" />
+
+
+
+
+
+
+
             </ScrollArea>
           </div>
 
