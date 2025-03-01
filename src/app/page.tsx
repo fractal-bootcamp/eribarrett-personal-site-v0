@@ -4,6 +4,7 @@ import { PixelLetter } from "../components/ui/pixel-font"
 import Image from "next/image"
 import { ScrollArea, ScrollBar } from "~/components/ui/scroll-area";
 import Header from "./_components/header";
+import { Marquee } from "~/components/magicui/marquee";
 
 export const metadata = {
   title: "Home | Eri Personal",
@@ -15,9 +16,8 @@ export default function Home() {
   return (
     <div className="flex flex-col min-h-screen h-full bg-red-200 text-white font-mono fixed top-0 left-0 right-0 overflow-hidden">
       <Header />
-
       {/* Main Content */}
-      <div className="flex flex-1 justify-center min-h-0">
+      <div className="flex justify-center min-h-0">
         <div className="flex-1 border-r border-gray-800 relative justify-center">
           {/* Top border with + signs */}
           {/* <div className="relative top-0 left-0 right-0 border-t-2 border-b-4 border-l-2 border-gray-800 flex justify-between items-center px-4 py-1 text-gray-600">
@@ -28,89 +28,92 @@ export default function Home() {
           </div> */}
 
           <div
-            style={{ position: "relative", zIndex: 10, overflowY: "auto", height: "100%" }}
-            className="flex flex-col flex-1"
+            style={{ position: "relative", zIndex: 0, overflowY: "auto", height: "100%" }}
+            className="flex flex-col"
           >
-            <ScrollArea className="w-full h-full overflow">
-              <div className="w-full h-full relative overflow-x-auto">
-                <ScrollArea className="w-full">
-                  <div className="flex space-x-0">
-                    {Array.from({ length: 100 }).map((_, index) => (
-                      <Image
-                        key={index}
-                        src="/images/spy.png"
-                        className="h-50"
-                        alt="Spy image"
-                        width={400}
-                        height={800}
-                        style={{ opacity: 0.5 }}
-                      />
-                    ))}
-                  </div>
-                  <ScrollBar orientation="horizontal" />
-                </ScrollArea>
-              </div>
+
+            <ScrollArea className="h-full">
+
+              <Marquee className="[--duration:1000s]">
+                <div className="flex space-x-0">
+                  {Array.from({ length: 100 }).map((_, index) => (
+                    <Image
+                      key={index}
+                      src="/images/spy.png"
+                      className="h-50"
+                      alt="Spy image"
+                      width={400}
+                      height={800}
+                      style={{ opacity: 0.5 }}
+                    />
+                  ))}
+                </div>
+              </Marquee>
+
 
               {/* Pixel Art Letters */}
-
               <div className="h-full pt-8 pb-8 px-4 min-w-[1200px] overflow relative">
                 {/* A - left */}
-                <div className="absolute left-[180px] top-[160px] text-white">
+                <div className="absolute left-[180px] top-[160px] text-white animate-pulse hover:text-yellow-200 transition-colors duration-500">
                   <PixelLetter letter="A" />
                 </div>
-                <div className="absolute left-[130px] top-[180px] text-gray-500">2</div>
-                <div className="absolute left-[260px] top-[170px] text-lime-300">4</div>
+                <div className="absolute left-[130px] top-[180px] text-gray-500 animate-[pulse_3s_ease-in-out_infinite] hover:text-cyan-300 transition-colors">2</div>
+                <div className="absolute left-[260px] top-[170px] text-lime-300 animate-[pulse_4s_ease-in-out_infinite] hover:text-pink-400 transition-colors">4</div>
 
                 {/* A - top */}
-                <div className="absolute left-[180px] top-[20px] text-white">
+                <div className="absolute left-[180px] top-[20px] text-white animate-[pulse_2.5s_ease-in-out_infinite] hover:text-blue-300 transition-colors">
                   <PixelLetter letter="A" />
                 </div>
-                <div className="absolute left-[130px] top-[80px] text-yellow-200">+</div>
-                <div className="absolute left-[260px] top-[40px] text-gray-500">5</div>
-                <div className="absolute left-[260px] top-[20px] text-gray-500">6</div>
-                <div className="absolute left-[350px] top-[20px] text-yellow-200">7</div>
-                <div className="absolute left-[240px] top-[60px] text-gray-500">?</div>
-                <div className="absolute left-[215px] top-[110px] text-cyan-300">0</div>
+                <div className="absolute left-[130px] top-[80px] text-yellow-200 animate-[pulse_1s_ease-in-out_infinite] hover:text-purple-300 transition-colors">+</div>
+                <div className="absolute left-[260px] top-[40px] text-gray-500 animate-[pulse_3.7s_ease-in-out_infinite] hover:text-green-300 transition-colors">5</div>
+                <div className="absolute left-[260px] top-[20px] text-gray-500 animate-[pulse_4.2s_ease-in-out_infinite] hover:text-red-300 transition-colors">6</div>
+                <div className="absolute left-[350px] top-[20px] text-yellow-200 animate-[pulse_3.3s_ease-in-out_infinite] hover:text-blue-400 transition-colors">7</div>
+                <div className="absolute left-[240px] top-[60px] text-gray-500 animate-[pulse_2s_ease-in-out_infinite] hover:text-orange-300 transition-colors">?</div>
+                <div className="absolute left-[215px] top-[110px] text-cyan-300 animate-[pulse_4.5s_ease-in-out_infinite] hover:text-yellow-300 transition-colors">0</div>
 
                 {/* M */}
-                <div className="absolute left-[420px] top-[20px] text-white">
+                <div className="absolute left-[420px] top-[20px] text-white animate-[pulse_3.1s_ease-in-out_infinite] hover:text-pink-300 transition-colors">
                   <PixelLetter letter="M" />
                 </div>
-                <div className="absolute left-[515px] top-[70px] text-gray-500">2</div>
-                <div className="absolute left-[390px] top-[165px] text-gray-500">-</div>
-                <div className="absolute left-[450px] top-[185px] text-gray-500">+</div>
+                <div className="absolute left-[515px] top-[70px] text-gray-500 animate-[pulse_2.7s_ease-in-out_infinite] hover:text-lime-300 transition-colors">2</div>
+                <div className="absolute left-[390px] top-[165px] text-gray-500 animate-[pulse_3.9s_ease-in-out_infinite] hover:text-teal-300 transition-colors">-</div>
+                <div className="absolute left-[450px] top-[185px] text-gray-500 animate-[pulse_4.7s_ease-in-out_infinite] hover:text-indigo-300 transition-colors">+</div>
 
                 {/* R */}
-                <div className="absolute left-[575px] top-[90px] text-white">
+                <div className="absolute left-[575px] top-[90px] text-white animate-[pulse_3.4s_ease-in-out_infinite] hover:text-amber-300 transition-colors">
                   <PixelLetter letter="R" />
                 </div>
-                <div className="absolute left-[620px] top-[20px] text-gray-500">-</div>
-                <div className="absolute left-[660px] top-[125px] text-gray-500">3</div>
-                <div className="absolute left-[575px] top-[160px] text-pink-400">M</div>
-                <div className="absolute left-[655px] top-[165px] text-gray-500">7</div>
+                <div className="absolute left-[620px] top-[20px] text-gray-500 animate-[pulse_2.9s_ease-in-out_infinite] hover:text-violet-300 transition-colors">-</div>
+                <div className="absolute left-[660px] top-[125px] text-gray-500 animate-[pulse_3.6s_ease-in-out_infinite] hover:text-rose-300 transition-colors">3</div>
+                <div className="absolute left-[575px] top-[160px] text-pink-400 animate-[pulse_4.3s_ease-in-out_infinite] hover:text-emerald-300 transition-colors">M</div>
+                <div className="absolute left-[655px] top-[165px] text-gray-500 animate-[pulse_3.2s_ease-in-out_infinite] hover:text-sky-300 transition-colors">7</div>
 
                 {/* I */}
-                <div className="absolute left-[740px] top-[90px] text-white">
+                <div className="absolute left-[740px] top-[90px] text-white animate-[pulse_2.6s_ease-in-out_infinite] hover:text-fuchsia-300 transition-colors">
                   <PixelLetter letter="I" />
                 </div>
-                <div className="absolute left-[740px] top-[170px] text-gray-500">N</div>
-                <div className="absolute left-[855px] top-[90px] text-lime-300">?</div>
-                <div className="absolute left-[940px] top-[90px] text-gray-500">4</div>
-                <div className="absolute left-[985px] top-[120px] text-gray-500">1</div>
+                <div className="absolute left-[740px] top-[170px] text-gray-500 animate-[pulse_4.1s_ease-in-out_infinite] hover:text-amber-300 transition-colors">N</div>
+                <div className="absolute left-[855px] top-[90px] text-lime-300 animate-[pulse_3.8s_ease-in-out_infinite] hover:text-blue-300 transition-colors">?</div>
+                <div className="absolute left-[940px] top-[90px] text-gray-500 animate-[pulse_4.4s_ease-in-out_infinite] hover:text-pink-300 transition-colors">4</div>
+                <div className="absolute left-[985px] top-[120px] text-gray-500 animate-[pulse_3.5s_ease-in-out_infinite] hover:text-green-300 transition-colors">1</div>
 
                 {/* Numbers and symbols */}
-                <div className="absolute left-[130px] top-[130px] text-gray-500">3</div>
-                <div className="absolute left-[300px] top-[130px] text-gray-500">3</div>
+                <div className="absolute left-[130px] top-[130px] text-gray-500 animate-[pulse_4.6s_ease-in-out_infinite] hover:text-purple-300 transition-colors">3</div>
+                <div className="absolute left-[300px] top-[130px] text-gray-500 animate-[pulse_2.4s_ease-in-out_infinite] hover:text-yellow-300 transition-colors">3</div>
               </div>
-              <ScrollBar orientation="vertical" />
-
-
-
-
 
 
 
             </ScrollArea>
+
+
+
+
+
+
+
+
+
           </div>
 
           {/* Bottom border with + signs */}
