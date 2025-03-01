@@ -11,6 +11,9 @@ import Header from "../_components/header";
 
 //function for fetching a single post from the db (search by keyword)
 
+//function for updating a post
+
+//function for deleting a post
 
 
 
@@ -25,6 +28,7 @@ export default async function BlogPage() {
         <HydrateClient>
             <div className="flex flex-col min-h-screen h-full bg-red-200 text-white font-mono fixed top-0 left-0 right-0 overflow-hidden">
                 <Header />
+
 
                 {/* Main Content */}
                 <div className="flex flex-1 justify-center min-h-0">

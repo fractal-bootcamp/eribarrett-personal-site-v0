@@ -58,7 +58,11 @@ export default function DevPage() {
                         {projects.map((project) => (
                             <div key={project.id} className="flex flex-col border-2 border-gray-800 rounded-lg p-4 bg-black bg-opacity-25 relative">
                                 <div className="relative">
-                                    <img src={project.image} alt={project.title} className="w-full h-48 object-cover rounded-lg" />
+                                    <img
+                                        src={project.image}
+                                        alt={project.title}
+                                        className="w-full h-48 object-cover rounded-lg opacity-85 shadow-lg drop-shadow-md backdrop-blur-sm"
+                                    />
                                 </div>
 
                                 <h2 className="mt-2 text-2xl font-semibold text-left">{project.title}</h2>
@@ -102,3 +106,6 @@ export default function DevPage() {
         </div>
     )
 }
+
+
+
