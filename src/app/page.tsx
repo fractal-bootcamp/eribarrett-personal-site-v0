@@ -1,7 +1,5 @@
 "use client"
 
-import { Moon, Sun } from "lucide-react"
-import { PixelLetter } from "../components/ui/pixel-font"
 import Image from "next/image"
 import { ScrollArea, ScrollBar } from "~/components/ui/scroll-area";
 import Header from "./_components/header";
