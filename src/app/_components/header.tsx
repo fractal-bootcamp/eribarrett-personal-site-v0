@@ -24,12 +24,11 @@ export default function Header() {
 
     return (
         <header className={`${isNarrow ? 'fixed top-0 left-0 right-0 z-50' : 'flex'} items-center border-b border-gray-800 bg-red-200 transition-all duration-300`}>
-
             <div className={`w-[70px] h-[70px] bg-[url('/images/princess.png')] flex items-center justify-center bg-cover bg-center border-r border-gray-800 hover:bg-opacity-70 transition-shadow ${isNarrow ? 'hidden' : ''}`}>
-
             </div>
-            <Link href="/" className="flex-1 flex justify-center text-xl tracking-wider py-5  border-x-yellow-200 border-x-8 border-b-2 border-b-gray-800 bg-black bg-opacity-40 hover:bg-opacity-70 transition-shadow" >
-                e r i . d e v</Link>
+            <Link href="/" className="flex-1 flex justify-center text-xl tracking-wider py-5 border-x-yellow-200 border-x-8 border-b-2 border-b-gray-800 bg-black bg-opacity-40 hover:bg-opacity-70 transition-shadow">
+                e r i . d e v
+            </Link>
             <div className="flex justify-center bg-red-200 items-center gap-4 px-6 border-l border-b border-gray-800 h-[70px]">
                 <Link
                     href="/development"
@@ -39,13 +38,13 @@ export default function Header() {
                 </Link>
                 <Link
                     href="/music"
-                    className="border-dashed border-2 rounded-full  bg-black bg-opacity-25 border-gray-600 px-5 py-2 text-sm hover:bg-black hover:bg-opacity-60 transition-colors"
+                    className="border-dashed border-2 rounded-full bg-black bg-opacity-25 border-gray-600 px-5 py-2 text-sm hover:bg-black hover:bg-opacity-60 transition-colors"
                 >
                     MUSIC
                 </Link>
                 <Link
                     href="/visualize"
-                    className="border-dashed border-2 rounded-full  bg-black bg-opacity-25 border-gray-600 px-5 py-2 text-sm hover:bg-black hover:bg-opacity-60 transition-colors"
+                    className="border-dashed border-2 rounded-full bg-black bg-opacity-25 border-gray-600 px-5 py-2 text-sm hover:bg-black hover:bg-opacity-60 transition-colors"
                 >
                     VISUALIZE
                 </Link>
