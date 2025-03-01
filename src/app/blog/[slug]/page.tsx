@@ -3,6 +3,7 @@ import { api } from "~/trpc/server";
 import { format } from "date-fns";
 import Post from "./post";
 import { Suspense } from "react";
+import Header from "~/app/_components/header";
 
 export const generateMetadata = async ({
     params,
@@ -48,19 +49,28 @@ async function BlogPostContent({ slug }: { slug: string }) {
 
 function LoadingPost() {
     return (
-        <div className="container mx-auto px-4 py-12 max-w-4xl">
+
+        <div className="flex flex-col min-h-screen h-full bg-red-200 text-white font-mono fixed top-0 left-0 right-0 overflow-hidden">
+
+            <Header />
+
             <div className="animate-pulse">
-                <div className="mb-8 text-center">
-                    <div className="h-10 bg-gray-300 dark:bg-gray-700 rounded w-3/4 mx-auto mb-4"></div>
-                    <div className="h-4 bg-gray-300 dark:bg-gray-700 rounded w-1/4 mx-auto"></div>
-                    <div className="h-6 bg-gray-300 dark:bg-gray-700 rounded w-2/3 mx-auto mt-4"></div>
-                </div>
-                <div className="space-y-4 mt-8">
-                    <div className="h-4 bg-gray-300 dark:bg-gray-700 rounded"></div>
-                    <div className="h-4 bg-gray-300 dark:bg-gray-700 rounded"></div>
-                    <div className="h-4 bg-gray-300 dark:bg-gray-700 rounded w-5/6"></div>
-                    <div className="h-4 bg-gray-300 dark:bg-gray-700 rounded"></div>
-                    <div className="h-4 bg-gray-300 dark:bg-gray-700 rounded w-4/5"></div>
+                <div className="flex flex-1 justify-center min-h-0 overflow-auto p-11">
+                    <div className="flex-1 max-w-4xl mx-auto">
+                        <div className="mb-10 text-center">
+                            <div className="h-10 bg-black bg-opacity-30 dark:bg-black dark:bg-opacity-70 rounded w-3/4 mx-auto mb-8"></div>
+                            <div className="h-4 bg-black bg-opacity-30 dark:bg-black dark:bg-opacity-70 rounded w-1/4 mx-auto mb-10"></div>
+                            <div className="h-6 bg-black bg-opacity-30 dark:bg-black dark:bg-opacity-70 rounded w-2/3 mx-auto mt-4"></div>
+                            <div className="h-6 bg-black bg-opacity-30 dark:bg-black dark:bg-opacity-70 rounded w-4/5 mx-auto mt-4"></div>
+                        </div>
+                        <div className="space-y-4">
+                            <div className="h-4 bg-black bg-opacity-30 dark:bg-black dark:bg-opacity-70 rounded"></div>
+                            <div className="h-4 bg-black bg-opacity-30 dark:bg-black dark:bg-opacity-70 rounded"></div>
+                            <div className="h-4 bg-black bg-opacity-30 dark:bg-black dark:bg-opacity-70 rounded w-5/6"></div>
+                            <div className="h-4 bg-black bg-opacity-30 dark:bg-black dark:bg-opacity-70 rounded"></div>
+                            <div className="h-4 bg-black bg-opacity-30 dark:bg-black dark:bg-opacity-70 rounded w-4/5"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
