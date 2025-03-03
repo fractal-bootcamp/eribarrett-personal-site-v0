@@ -1,5 +1,8 @@
-import { useState, useRef, useEffect, ReactNode } from "react";
+"use client"
+
+import { useState, useRef, ReactNode } from "react";
 import Image from "next/image";
+import * as motion from "motion/react-client";
 
 interface DraggableItem {
     id: number;
@@ -72,83 +75,19 @@ const DragDrop = ({
     children,
     className = ""
 }: DragDropProps) => {
-    const [draggableItems, setDraggableItems] = useState<DraggableItem[]>(items);
+    const [draggableItems] = useState<DraggableItem[]>(items);
     const containerRef = useRef<HTMLDivElement>(null);
-    const [activeItem, setActiveItem] = useState<number | null>(null);
-    const [initialPos, setInitialPos] = useState({ x: 0, y: 0 });
-    const [initialElementPos, setInitialElementPos] = useState({ top: 0, left: 0 });
-
-    const handleMouseDown = (e: React.MouseEvent, item: DraggableItem) => {
-        setActiveItem(item.id);
-        setInitialPos({ x: e.clientX, y: e.clientY });
-
-        // Find the current item
-        const currentItem = draggableItems.find(i => i.id === item.id);
-
-        // Get the element's current position
-        const element = e.currentTarget;
-        const rect = element.getBoundingClientRect();
-        const containerRect = containerRef.current?.getBoundingClientRect() || { top: 0, left: 0 };
-
-        // Calculate position relative to container
-        const top = rect.top - containerRect.top;
-        const left = rect.left - containerRect.left;
-
-        setInitialElementPos({ top, left });
-    };
-
-    const handleMouseMove = (e: MouseEvent) => {
-        if (!activeItem) return;
-
-        const dx = e.clientX - initialPos.x;
-        const dy = e.clientY - initialPos.y;
-
-        setDraggableItems(items =>
-            items.map(item => {
-                if (item.id === activeItem) {
-                    // Calculate new position
-                    const newTop = initialElementPos.top + dy;
-                    const newLeft = initialElementPos.left + dx;
-
-                    return {
-                        ...item,
-                        top: newTop,
-                        left: `${newLeft}px`,
-                        bottom: undefined,
-                        right: undefined
-                    } as DraggableItem;
-                }
-                return item;
-            })
-        );
-    };
-
-    const handleMouseUp = () => {
-        setActiveItem(null);
-    };
-
-    useEffect(() => {
-        if (activeItem) {
-            document.addEventListener('mousemove', handleMouseMove);
-            document.addEventListener('mouseup', handleMouseUp);
-
-            return () => {
-                document.removeEventListener('mousemove', handleMouseMove);
-                document.removeEventListener('mouseup', handleMouseUp);
-            };
-        }
-    }, [activeItem, initialPos, initialElementPos]);
 
     return (
         <div className={`relative w-full h-full overflow-hidden ${className}`}>
-            <div
+            <motion.div
                 ref={containerRef}
                 className="absolute inset-0 flex flex-col items-center"
             >
                 {draggableItems.map(item => (
-                    <div
+                    <motion.div
                         key={item.id}
-                        className={`absolute border-2 border-gray-800 rounded-lg p-4 bg-black bg-opacity-25 cursor-move ${activeItem === item.id ? 'z-10' : 'z-0'}`}
+                        className={`absolute border-2 border-gray-800 rounded-lg p-4 bg-black bg-opacity-25 cursor-move`}
                         style={{
                             top: typeof item.top === 'number' ? `${item.top}px` : item.top,
                             left: item.left,
@@ -157,7 +96,9 @@ const DragDrop = ({
                             width: `${item.width}px`,
                             transform: `rotate(${item.rotate}deg)`
                         }}
-                        onMouseDown={(e) => handleMouseDown(e, item)}
+                        drag
+                        dragConstraints={containerRef}
+                        dragElastic={0.2}
                     >
                         {item.content?.image && (
                             <div className="mb-2">
@@ -182,9 +123,9 @@ const DragDrop = ({
                         )}
 
                         {children}
-                    </div>
+                    </motion.div>
                 ))}
-            </div>
+            </motion.div>
         </div>
     );
 };
