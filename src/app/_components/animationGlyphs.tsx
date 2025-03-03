@@ -1,5 +1,5 @@
 import localFont from "next/font/local";
-import { ReactNode } from "react";
+import { ReactNode, useEffect, useState } from "react";
 
 const enceladianFont = localFont({
     src: "../../../public/fonts/EnceladianGlyphs.ttf",
@@ -46,59 +46,72 @@ interface TinyGlyphData {
 }
 
 export default function Glyphs(): ReactNode {
-    // Generate deterministic random values
-    const random = seededRandom(42); // Use a fixed seed
+    const [seed, setSeed] = useState<number>(28);
+
+    useEffect(() => {
+        // Generate a new random seed on each client-side render
+        setSeed(Math.floor(Math.random() * 10000));
+    }, []);
+
+    // Generate random values with the current seed
+    const random = seededRandom(seed);
 
     // Pre-generate all random values
     const glyphsData: GlyphData[] = Array.from({ length: 40 }).map(() => ({
         left: Math.floor(random() * 95) + 2,
-        top: Math.floor(random() * 250) + 20,
+        top: Math.floor(random() * 500) + 100, // Expanded vertical range to distribute throughout the page
         size: Math.floor(random() * 6) + 4,
         char: String.fromCharCode(65 + Math.floor(random() * 26)),
         duration: (random() * 4 + 1).toFixed(1),
         color: (() => {
             const colors = [
-                'text-white', 'text-black text-opacity-50', 'text-gray-400',
-                'text-pink-400', 'text-pink-300', 'text-purple-300',
-                'text-lime-300', 'text-red-300', 'text-orange-300',
-                'text-violet-300', 'text-rose-300', 'text-black',
-                'text-cyan-300', 'text-indigo-300', 'text-amber-300'
+                'text-white', 'text-black text-opacity-40',
+                'text-black text-opacity-60',
+                'text-black text-opacity-30',
+                'text-black text-opacity-70',
+                'text-white', 'text-black text-opacity-40',
+                'text-black text-opacity-60', 'text-white', 'text-black text-opacity-40',
+                'text-black text-opacity-60', 'text-white', 'text-black text-opacity-40',
+                'text-black text-opacity-60', 'text-white', 'text-black text-opacity-40',
             ];
-            if (random() > 0.7) colors.push('text-yellow-200');
-            if (random() > 0.8) colors.push('text-cyan-300');
+            // Add colored text with reduced frequency
+            if (random() > 0.85) colors.push('text-pink-300');
+            if (random() > 0.9) colors.push('text-lime-300');
+            if (random() > 0.88) colors.push('text-cyan-300');
+            // Reduced chance of yellow
+            if (random() > 0.92) colors.push('text-yellow-200');
             return colors[Math.floor(random() * colors.length)];
         })(),
         hoverColor: (() => {
             const hoverColors = [
-                'hover:text-pink-300', 'hover:text-purple-300',
-                'hover:text-lime-300', 'hover:text-red-300',
-                'hover:text-orange-300', 'hover:text-violet-300',
-                'hover:text-rose-300', 'hover:text-fuchsia-300',
-                'hover:text-teal-300', 'hover:text-indigo-300',
-                'hover:text-amber-300', 'hover:text-pink-400'
+                'hover:text-black hover:text-opacity-80',
+                'hover:text-black hover:text-opacity-70',
+                'hover:text-black hover:text-opacity-60',
             ];
-            if (random() > 0.7) hoverColors.push('hover:text-yellow-300');
-            if (random() > 0.8) hoverColors.push('hover:text-cyan-300');
+            // Add colored hover effects with reduced frequency
+            if (random() > 0.85) hoverColors.push('hover:text-pink-300');
+            if (random() > 0.9) hoverColors.push('hover:text-cyan-300');
+            if (random() > 0.92) hoverColors.push('hover:text-yellow-300');
             return hoverColors[Math.floor(random() * hoverColors.length)];
         })()
     }));
-
     const mediumGlyphsData: MediumGlyphData[] = Array.from({ length: 30 }).map(() => ({
         left: Math.floor(random() * 95) + 2,
-        top: Math.floor(random() * 250) + 20,
+        top: Math.floor(random() * 600) - 10, // Expanded range for better distribution down the page
         size: Math.floor(random() * 3) + 4,
         char: String.fromCharCode(97 + Math.floor(random() * 26)),
         duration: (random() * 3 + 2).toFixed(1),
         color: (() => {
-            const colors = ['text-gray-400', 'text-gray-500', 'text-white', 'text-pink-400', 'text-purple-300', 'text-violet-300'];
-            if (random() > 0.8) colors.push('text-yellow-200');
-            return colors[Math.floor(random() * colors.length)];
+            const colors = ['text-white', 'text-black text-opacity-80'];
+            // Reduced chance of yellow
+            if (random() > 0.95) colors.push('text-yellow-200');
+            return colors[Math.floor(random() * colors.length)] || 'text-white'; // Provide default to avoid undefined
         })()
     }));
 
     const tinyGlyphsData: TinyGlyphData[] = Array.from({ length: 100 }).map(() => ({
         left: Math.floor(random() * 98) + 1,
-        top: Math.floor(random() * 280) + 10,
+        top: Math.floor(random() * 600) + 10, // Expanded vertical range to distribute throughout the page
         size: (random() * 1.5 + 0.5).toFixed(1),
         char: String.fromCharCode(65 + Math.floor(random() * 26)),
         duration: (random() * 1.5 + 0.5).toFixed(1),
@@ -108,14 +121,14 @@ export default function Glyphs(): ReactNode {
 
     return (
         <div className={enceladianFont.variable}>
-            <div className="flex flex-col">
+            <div className="flex flex-1 w-full overflow-hidden min-h-screen">
                 {/* Enceladian Glyphs */}
-                <div className="relative w-full h-full">
+                <div className="relative w-full h-full min-h-screen">
                     {/* Randomly distributed glyphs */}
                     {glyphsData.map((glyph, index) => (
                         <div
                             key={`glyph-${index}`}
-                            className={`absolute ${glyph.color} ${glyph.hoverColor} text-${glyph.size}xl animate-[pulse_${glyph.duration}s_ease-in-out_infinite] transition-colors duration-500`}
+                            className={`absolute ${glyph.color} ${glyph.hoverColor} text-${glyph.size}lg animate-[pulse_${glyph.duration}s_ease-in-out_infinite] transition-colors duration-500`}
                             style={{
                                 left: `${glyph.left}%`,
                                 top: `${glyph.top}px`,
@@ -143,7 +156,7 @@ export default function Glyphs(): ReactNode {
                         </div>
                     ))}
 
-                    {/* Tiny star-like glyphs with flickering */}
+                    {/* Tiny star-like glyphs with flickering - now distributed across a larger vertical space */}
                     {tinyGlyphsData.map((glyph, index) => (
                         <div
                             key={`tiny-${index}`}
