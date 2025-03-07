@@ -52,11 +52,8 @@ async function BlogPostContent({ slug }: { slug: string }) {
 
 function LoadingPost() {
     return (
-
-        <div className="flex flex-col min-h-screen h-full bg-red-200 text-white font-mono fixed top-0 left-0 right-0 overflow-hidden">
-
+        <div className="flex flex-col min-h-screen h-full bg-red-200 dark:bg-gray-900 dark:bg-opacity-90 text-white font-mono fixed top-0 left-0 right-0 overflow-hidden">
             <Header />
-
             <div className="animate-pulse">
                 <div className="flex flex-1 justify-center min-h-0 overflow-auto p-11">
                     <div className="flex-1 max-w-4xl mx-auto">

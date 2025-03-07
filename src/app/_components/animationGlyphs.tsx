@@ -65,53 +65,50 @@ export default function Glyphs(): ReactNode {
         duration: (random() * 4 + 1).toFixed(1),
         color: (() => {
             const colors = [
-                'text-white', 'text-black text-opacity-40',
-                'text-black text-opacity-60',
-                'text-black text-opacity-30',
-                'text-black text-opacity-70',
-                'text-white', 'text-black text-opacity-40',
-                'text-black text-opacity-60', 'text-white', 'text-black text-opacity-40',
-                'text-black text-opacity-60', 'text-white', 'text-black text-opacity-40',
-                'text-black text-opacity-60', 'text-white', 'text-black text-opacity-40',
+                'text-white dark:text-white',
+                'text-black text-opacity-40 dark:text-white dark:text-opacity-40',
+                'text-black text-opacity-60 dark:text-white dark:text-opacity-60',
+                'text-black text-opacity-30 dark:text-white dark:text-opacity-30',
+                'text-black text-opacity-70 dark:text-white dark:text-opacity-70',
             ];
             // Add colored text with reduced frequency
-            if (random() > 0.85) colors.push('text-pink-300');
-            if (random() > 0.9) colors.push('text-lime-300');
-            if (random() > 0.88) colors.push('text-cyan-300');
+            if (random() > 0.85) colors.push('text-pink-300 dark:text-pink-400');
+            if (random() > 0.9) colors.push('text-lime-300 dark:text-lime-400');
+            if (random() > 0.88) colors.push('text-cyan-300 dark:text-cyan-400');
             // Reduced chance of yellow
-            if (random() > 0.92) colors.push('text-yellow-200');
+            if (random() > 0.92) colors.push('text-yellow-200 dark:text-yellow-300');
             return colors[Math.floor(random() * colors.length)];
-        })() || "#ffffff",
+        })() || "text-white dark:text-white",
         hoverColor: (() => {
             const hoverColors = [
-                'hover:text-black hover:text-opacity-80',
-                'hover:text-black hover:text-opacity-70',
-                'hover:text-black hover:text-opacity-60',
+                'hover:text-black hover:text-opacity-80 dark:hover:text-white dark:hover:text-opacity-80',
+                'hover:text-black hover:text-opacity-70 dark:hover:text-white dark:hover:text-opacity-70',
+                'hover:text-black hover:text-opacity-60 dark:hover:text-white dark:hover:text-opacity-60',
             ];
             // Add colored hover effects with reduced frequency
-            if (random() > 0.85) hoverColors.push('hover:text-pink-300');
-            if (random() > 0.9) hoverColors.push('hover:text-cyan-300');
-            if (random() > 0.92) hoverColors.push('hover:text-yellow-300');
+            if (random() > 0.85) hoverColors.push('hover:text-pink-300 dark:hover:text-pink-400');
+            if (random() > 0.9) hoverColors.push('hover:text-cyan-300 dark:hover:text-cyan-400');
+            if (random() > 0.92) hoverColors.push('hover:text-yellow-300 dark:hover:text-yellow-400');
             return hoverColors[Math.floor(random() * hoverColors.length)];
-        })() || "#ff0000"
+        })() || "hover:text-white dark:hover:text-white"
     }));
     const mediumGlyphsData: MediumGlyphData[] = Array.from({ length: 30 }).map(() => ({
         left: Math.floor(random() * 95) + 2,
-        top: Math.floor(random() * 600) - 10, // Expanded range for better distribution down the page
+        top: Math.floor(random() * 600) - 10,
         size: Math.floor(random() * 3) + 4,
         char: String.fromCharCode(97 + Math.floor(random() * 26)),
         duration: (random() * 3 + 2).toFixed(1),
         color: (() => {
-            const colors = ['text-white', 'text-black text-opacity-80'];
+            const colors = ['text-white dark:text-white', 'text-black text-opacity-80 dark:text-white dark:text-opacity-80'];
             // Reduced chance of yellow
-            if (random() > 0.95) colors.push('text-yellow-200');
-            return colors[Math.floor(random() * colors.length)] || 'text-white'; // Provide default to avoid undefined
+            if (random() > 0.95) colors.push('text-yellow-200 dark:text-yellow-300');
+            return colors[Math.floor(random() * colors.length)] || 'text-white dark:text-white';
         })()
     }));
 
     const tinyGlyphsData: TinyGlyphData[] = Array.from({ length: 100 }).map(() => ({
         left: Math.floor(random() * 98) + 1,
-        top: Math.floor(random() * 600) + 10, // Expanded vertical range to distribute throughout the page
+        top: Math.floor(random() * 600) + 10,
         size: (random() * 1.5 + 0.5).toFixed(1),
         char: String.fromCharCode(65 + Math.floor(random() * 26)),
         duration: (random() * 1.5 + 0.5).toFixed(1),
@@ -160,7 +157,7 @@ export default function Glyphs(): ReactNode {
                     {tinyGlyphsData.map((glyph, index) => (
                         <div
                             key={`tiny-${index}`}
-                            className="absolute text-white"
+                            className="absolute text-white dark:text-white"
                             style={{
                                 left: `${glyph.left}%`,
                                 top: `${glyph.top}px`,

@@ -5,33 +5,66 @@ import { ScrollArea, ScrollBar } from "~/components/ui/scroll-area";
 import Header from "./_components/header";
 import { Marquee } from "~/components/magicui/marquee";
 import localFont from 'next/font/local'
-import { useEffect, useState } from "react"
+import { useEffect, useState, useCallback } from "react"
 import Glyphs from "./_components/animationGlyphs";
 
 
 export default function Home() {
   const [mounted, setMounted] = useState(false);
+  const [sidebarData, setSidebarData] = useState<string[]>([]);
 
-  // Only render the random elements after client-side mount
+  const generateSidebarData = useCallback(() => {
+    const sidebarChars = ".:+*#@%=-_?!$&";
+    return Array(1000).fill(0).map(() =>
+      Array(400).fill(0).map(() =>
+        sidebarChars[Math.floor(Math.random() * sidebarChars.length)]
+      ).join("")
+    );
+  }, []);
+
+  useEffect(() => {
+    if (mounted) {
+      setSidebarData(generateSidebarData());
+
+      const interval = setInterval(() => {
+        setSidebarData(prevData => {
+          const newData = [...prevData];
+
+          const rowsToUpdate = Math.floor(newData.length * 0.05);
+          for (let i = 0; i < rowsToUpdate; i++) {
+            const randomRowIndex = Math.floor(Math.random() * newData.length);
+            const sidebarChars = ".:+*#@%=-_?!$&";
+            newData[randomRowIndex] = Array(400).fill(0).map(() =>
+              sidebarChars[Math.floor(Math.random() * sidebarChars.length)]
+            ).join("");
+          }
+
+          return newData;
+        });
+      }, 100);
+
+      return () => clearInterval(interval);
+    }
+  }, [mounted, generateSidebarData]);
+
   useEffect(() => {
     setMounted(true);
   }, []);
 
   if (!mounted) {
     return (
-
-      <div className="flex flex-col min-h-screen h-full bg-red-200 text-white font-mono fixed top-0 left-0 right-0 overflow-hidden">
+      <div className="flex flex-col min-h-screen h-full bg-red-200 dark:bg-gray-900 dark:bg-opacity-90 text-white font-mono fixed top-0 left-0 right-0 overflow-hidden">
         <Header />
         <div className="flex justify-center min-h-0">
           <div className="flex-1 border-r border-gray-800 relative justify-center">
             <div style={{ position: "relative", zIndex: 0, overflowY: "auto", height: "100%" }} className="flex flex-col">
               <ScrollArea className="h-full">
                 <div className="flex justify-center items-center h-full">
-                  
+
                   {/* Loading state */}
                   <div className="text-white text-xl">Loading...</div>
-                
-                
+
+
                 </div>
               </ScrollArea>
             </div>
@@ -39,7 +72,7 @@ export default function Home() {
 
           {/* Right Sidebar */}
           <div className="w-[400px] border-l border-gray-800 overflow-hidden flex flex-col fixed right-0 top-0 bottom-0 z-10 min-w-[200px] max-w-[300px]">
-            <div className="justify-center bg-black bg-opacity-40 top-0 right-0 border-b-2 border-yellow-200 w-full px-4 py-2 text-gray-600">
+            <div className="justify-center bg-black bg-opacity-40 dark:bg-black dark:bg-opacity-80 top-0 right-0 border-b-2 border-yellow-200 w-full px-4 py-2 text-gray-600">
               <span>+</span>
             </div>
             <div className="flex-1 overflow-y-auto relative text-[10px] leading-[10px] text-gray-500 pl-2 pt-1 font-mono bg-cover bg-center bg-no-repeat">
@@ -69,19 +102,8 @@ export default function Home() {
     );
   }
 
-
-
-  // Pre-generate sidebar characters
-  const sidebarChars = ".:+*#@%=-_?!$&";
-  const sidebarData = Array(1000).fill(0).map(() =>
-    Array(400).fill(0).map(() =>
-      sidebarChars[Math.floor(Math.random() * sidebarChars.length)]
-    ).join("")
-  );
-
   return (
-
-    <div className="flex flex-col min-h-screen h-full bg-red-200 text-white font-mono fixed top-0 left-0 right-0 overflow-hidden">
+    <div className="flex flex-col min-h-screen h-full bg-red-200 dark:bg-gray-900 dark:bg-opacity-90 text-white font-mono fixed top-0 left-0 right-0 overflow-hidden">
       <Header />
       {/* Main Content */}
       <div className="flex justify-center min-h-0">
@@ -141,7 +163,7 @@ export default function Home() {
 
         {/* Right Sidebar */}
         <div className="w-[400px] border-l border-gray-800 overflow-hidden relative flex flex-col fixed right-0 top-0 bottom-0 z-10 min-w-[200px] max-w-[300px]">
-          <div className="justify-center bg-black bg-opacity-40 top-0 right-0 border-b-2 border-yellow-200 w-full px-4 py-2 text-gray-600">
+          <div className="justify-center bg-black bg-opacity-40 dark:bg-black dark:bg-opacity-80 top-0 right-0 border-b-2 border-yellow-200 w-full px-4 py-2 text-gray-600">
             <span>+</span>
           </div>
           <div className="flex-1 overflow-y-auto relative text-[10px] leading-[10px] text-gray-500 pl-2 pt-1 font-mono bg-cover bg-center bg-no-repeat">
