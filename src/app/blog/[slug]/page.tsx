@@ -1,16 +1,17 @@
 import { notFound } from "next/navigation";
 import { api } from "~/trpc/server";
-import { format } from "date-fns";
 import Post from "./post";
 import { Suspense } from "react";
 import Header from "~/app/_components/header";
 
+type Params = Promise<{ slug: string }>;
+
 export const generateMetadata = async ({
     params,
 }: {
-    params: { slug: string };
+    params: Params;
 }) => {
-    const post = await api.post.getBySlug({ slug: params.slug });
+    const post = await api.post.getBySlug({ slug: (await params).slug });
 
     if (!post) {
         return {
@@ -25,14 +26,16 @@ export const generateMetadata = async ({
     };
 };
 
-export default function BlogPostPage({
+export default async function BlogPostPage({
     params,
 }: {
-    params: { slug: string };
+    params: Params;
 }) {
+    const { slug } = await params;
+
     return (
         <Suspense fallback={<LoadingPost />}>
-            <BlogPostContent slug={params.slug} />
+            <BlogPostContent slug={slug} />
         </Suspense>
     );
 }

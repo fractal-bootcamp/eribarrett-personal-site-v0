@@ -16,7 +16,7 @@ function seededRandom(seed: number) {
 }
 
 // Define types for our glyph data
-interface GlyphData {
+type GlyphData = {
     left: number;
     top: number;
     size: number;
@@ -24,7 +24,7 @@ interface GlyphData {
     duration: string;
     color: string;
     hoverColor: string;
-}
+};
 
 interface MediumGlyphData {
     left: number;
@@ -81,7 +81,7 @@ export default function Glyphs(): ReactNode {
             // Reduced chance of yellow
             if (random() > 0.92) colors.push('text-yellow-200');
             return colors[Math.floor(random() * colors.length)];
-        })(),
+        })() || "#ffffff",
         hoverColor: (() => {
             const hoverColors = [
                 'hover:text-black hover:text-opacity-80',
@@ -93,7 +93,7 @@ export default function Glyphs(): ReactNode {
             if (random() > 0.9) hoverColors.push('hover:text-cyan-300');
             if (random() > 0.92) hoverColors.push('hover:text-yellow-300');
             return hoverColors[Math.floor(random() * hoverColors.length)];
-        })()
+        })() || "#ff0000"
     }));
     const mediumGlyphsData: MediumGlyphData[] = Array.from({ length: 30 }).map(() => ({
         left: Math.floor(random() * 95) + 2,

@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { createTRPCRouter, protectedProcedure, publicProcedure } from "~/server/api/trpc";
+import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 
 export const postRouter = createTRPCRouter({
   hello: publicProcedure
@@ -51,9 +51,12 @@ export const postRouter = createTRPCRouter({
     return posts
   }),
 
-  protected: protectedProcedure.query(async ({ ctx }) => {
-    return {
-      message: "You are authenticated",
-    };
+  getByDate: publicProcedure.input(z.object({ date: z.string() })).query(async ({ ctx, input }) => {
+    const posts = await ctx.db.post.findMany({
+      where: { createdAt: { gte: new Date(input.date) } },
+      orderBy: { createdAt: "desc" },
+    });
+
+    return posts;
   }),
 });

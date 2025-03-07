@@ -27,8 +27,11 @@ export default function Home() {
             <div style={{ position: "relative", zIndex: 0, overflowY: "auto", height: "100%" }} className="flex flex-col">
               <ScrollArea className="h-full">
                 <div className="flex justify-center items-center h-full">
+                  
                   {/* Loading state */}
                   <div className="text-white text-xl">Loading...</div>
+                
+                
                 </div>
               </ScrollArea>
             </div>

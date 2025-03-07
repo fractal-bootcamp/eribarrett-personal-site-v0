@@ -18,16 +18,21 @@ import { Timeline } from "~/components/ui/timeline";
 
 
 
-
+type TimelineItem = {
+    date: string;
+    title: string;
+    description: string | null | undefined;
+    href: string;
+}
 
 export default async function BlogPage() {
     const posts = await api.post.getAll();
 
     // Convert posts to timeline items
     const timelineItems = posts.map((post) => ({
-        date: post.createdAt.toISOString(),
+        date: post.createdAt.toLocaleDateString(),
         title: post.title,
-        description: post.excerpt,
+        description: post.excerpt || undefined,
         href: `/blog/${post.slug}`,
     }));
 
