@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
+import { env } from "~/env";
 
 export const postRouter = createTRPCRouter({
   hello: publicProcedure
@@ -47,24 +48,16 @@ export const postRouter = createTRPCRouter({
   }),
 
   getAll: publicProcedure.query(async ({ ctx }) => {
+    console.log("Fetching all posts");
+    console.log(`Using DATABASE_URL: ${env.DATABASE_URL.substring(0, 20)}...`);
+    console.log(`DIRECT_URL available: ${!!env.DIRECT_URL}`);
+
     try {
-      // First try to get all posts regardless of published status
-      const allPosts = await ctx.db.post.findMany({
+      const posts = await ctx.db.post.findMany({
         orderBy: { createdAt: "desc" },
       });
-
-      console.log(`Found ${allPosts.length} total posts (including unpublished)`);
-
-      // Then get only published posts
-      const publishedPosts = await ctx.db.post.findMany({
-        where: { published: true },
-        orderBy: { createdAt: "desc" },
-      });
-
-      console.log(`Found ${publishedPosts.length} published posts`);
-
-      // Return all posts for now to debug
-      return allPosts;
+      console.log(`Found ${posts.length} posts`);
+      return posts;
     } catch (error) {
       console.error("Error fetching posts:", error);
       throw error;
