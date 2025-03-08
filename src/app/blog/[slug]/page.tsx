@@ -1,16 +1,17 @@
 import { notFound } from "next/navigation";
 import { api } from "~/trpc/server";
-import { format } from "date-fns";
 import Post from "./post";
 import { Suspense } from "react";
 import Header from "~/app/_components/header";
 
+type Params = Promise<{ slug: string }>;
+
 export const generateMetadata = async ({
     params,
 }: {
-    params: { slug: string };
+    params: Params;
 }) => {
-    const post = await api.post.getBySlug({ slug: params.slug });
+    const post = await api.post.getBySlug({ slug: (await params).slug });
 
     if (!post) {
         return {
@@ -25,14 +26,16 @@ export const generateMetadata = async ({
     };
 };
 
-export default function BlogPostPage({
+export default async function BlogPostPage({
     params,
 }: {
-    params: { slug: string };
+    params: Params;
 }) {
+    const { slug } = await params;
+
     return (
         <Suspense fallback={<LoadingPost />}>
-            <BlogPostContent slug={params.slug} />
+            <BlogPostContent slug={slug} />
         </Suspense>
     );
 }
@@ -40,7 +43,7 @@ export default function BlogPostPage({
 async function BlogPostContent({ slug }: { slug: string }) {
     const post = await api.post.getBySlug({ slug });
 
-    if (!post) {
+    if (!post || !post.published) {
         notFound();
     }
 
@@ -49,11 +52,8 @@ async function BlogPostContent({ slug }: { slug: string }) {
 
 function LoadingPost() {
     return (
-
-        <div className="flex flex-col min-h-screen h-full bg-red-200 text-white font-mono fixed top-0 left-0 right-0 overflow-hidden">
-
+        <div className="flex flex-col min-h-screen h-full bg-red-200 dark:bg-gray-900 dark:bg-opacity-90 text-white font-mono fixed top-0 left-0 right-0 overflow-hidden">
             <Header />
-
             <div className="animate-pulse">
                 <div className="flex flex-1 justify-center min-h-0 overflow-auto p-11">
                     <div className="flex-1 max-w-4xl mx-auto">

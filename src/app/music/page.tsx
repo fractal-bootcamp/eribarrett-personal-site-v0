@@ -73,7 +73,7 @@ export default function MusicPage() {
     if (!mounted) {
         return (
             <div className={enceladianFont.variable}>
-                <div className="flex flex-col min-h-screen h-full bg-black text-white font-mono fixed top-0 left-0 right-0 overflow-hidden">
+                <div className="flex flex-col min-h-screen h-full bg-red-200 dark:bg-gray-900 dark:bg-opacity-90 text-white font-mono fixed top-0 left-0 right-0 overflow-hidden">
                     <Header />
                     <div className="flex justify-center items-center h-full">
                         <div className="text-white text-xl">Loading...</div>
@@ -85,47 +85,49 @@ export default function MusicPage() {
 
     return (
         <div className={enceladianFont.variable}>
-            <div className="flex flex-col min-h-screen h-full bg-black text-white font-mono fixed top-0 left-0 right-0 overflow-hidden">
+            <div className="flex flex-col min-h-screen h-full bg-red-200 dark:bg-gray-900 dark:bg-opacity-90 text-white font-mono fixed top-0 left-0 right-0 overflow-hidden">
                 <Header />
-                <div className="flex justify-center min-h-0">
-                    <div className="flex-1 border-r border-gray-800 relative justify-center">
-                        <div style={{ position: "relative", zIndex: 0, overflowY: "auto", height: "100%" }} className="flex flex-col">
-                            <ScrollArea className="h-full">
-                                <div className="relative h-screen w-full">
+                <div className="bg-black bg-opacity-40 dark:bg-black dark:bg-opacity-80">
+                    <div className="flex justify-center min-h-0">
+                        <div className="flex-1 border-r border-gray-700 dark:border-gray-600 relative justify-center">
+                            <div style={{ position: "relative", zIndex: 0, overflowY: "auto", height: "100%" }} className="flex flex-col">
+                                <ScrollArea className="h-full">
+                                    <div className="relative h-screen w-full">
 
 
 
-                                    {/* Full-width background video */}
-                                    <div className="absolute inset-0 w-full h-full z-0">
-                                        <video
-                                            className="w-full object-cover"
-                                            autoPlay
-                                            loop
-                                            muted
-                                            playsInline
-                                        >
-                                            <source src="/images/music/relena.mp4" type="video/mp4" />
-                                            Your browser does not support the video tag.
-                                        </video>
+                                        {/* Full-width background video */}
+                                        <div className="absolute inset-0 w-full h-full z-0">
+                                            <video
+                                                className="w-full object-cover"
+                                                autoPlay
+                                                loop
+                                                muted
+                                                playsInline
+                                            >
+                                                <source src="/images/music/relena.mp4" type="video/mp4" />
+                                                Your browser does not support the video tag.
+                                            </video>
+                                        </div>
+
+
+
+
+
+
+
+
+
+                                        {/* Draggable music items */}
+                                        {/* <DragDrop items={musicItems} className="pt-10" /> */}
+
+                                        {/* Decorative elements */}
+                                        {/* <div className="absolute bottom-10 left-10 text-3xl text-gray-600 opacity-50" style={{ fontFamily: "var(--font-enceladian)" }}>
+                                            ♫ ♪ ♬
+                                        </div> */}
                                     </div>
-
-
-
-
-
-
-
-
-
-                                    {/* Draggable music items */}
-                                    <DragDrop items={musicItems} className="pt-10" />
-
-                                    {/* Decorative elements */}
-                                    <div className="absolute bottom-10 left-10 text-3xl text-gray-600 opacity-50" style={{ fontFamily: "var(--font-enceladian)" }}>
-                                        ♫ ♪ ♬
-                                    </div>
-                                </div>
-                            </ScrollArea>
+                                </ScrollArea>
+                            </div>
                         </div>
                     </div>
                 </div>

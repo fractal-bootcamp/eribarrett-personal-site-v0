@@ -18,45 +18,72 @@ import { Timeline } from "~/components/ui/timeline";
 
 
 
-
+type TimelineItem = {
+    date: string;
+    title: string;
+    description?: string;
+    href: string;
+}
 
 export default async function BlogPage() {
-    const posts = await api.post.getAll();
+    try {
+        console.log("Fetching posts...");
+        const posts = await api.post.getAll();
+        console.log(`Found ${posts.length} posts`);
 
-    // Convert posts to timeline items
-    const timelineItems = posts.map((post) => ({
-        date: post.createdAt.toISOString(),
-        title: post.title,
-        description: post.excerpt,
-        href: `/blog/${post.slug}`,
-    }));
+        // Filter to only show published posts in the public view
+        const publishedPosts = posts.filter(post => post.published);
 
-    return (
-        <HydrateClient>
-            <div className="flex flex-col min-h-screen h-full bg-red-200 text-white font-mono fixed top-0 left-0 right-0 overflow-hidden">
+        if (publishedPosts.length === 0) {
+            return (
+                <div className="flex flex-col min-h-screen h-full bg-red-200 dark:bg-gray-900 dark:bg-opacity-90 text-white font-mono fixed top-0 left-0 right-0 overflow-hidden">
+                    <Header />
+                    <div className="flex flex-1 justify-center items-center">
+                        <div className="p-8 bg-black bg-opacity-30 rounded-lg max-w-md text-center">
+                            <h1 className="text-2xl font-bold mb-4">No Posts Found</h1>
+                            <p>There are no published blog posts available yet.</p>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        // Convert posts to timeline items with null handling
+        const timelineItems: TimelineItem[] = publishedPosts.map(post => ({
+            date: new Date(post.createdAt).toLocaleDateString(),
+            title: post.title,
+            description: post.excerpt || undefined,
+            href: `/blog/${post.slug}`
+        }));
+
+        // Render only published posts using Timeline component
+        return (
+            <div className="flex flex-col min-h-screen h-full bg-red-200 dark:bg-gray-900 dark:bg-opacity-90 text-white font-mono fixed top-0 left-0 right-0 overflow-hidden">
                 <Header />
-
-                {/* Main Content */}
                 <div className="flex flex-1 justify-center min-h-0 overflow-y-auto py-8">
                     <div className="w-full max-w-6xl px-4">
-                        <h1 className="text-3xl font-bold mb-8 text-center">Blog Posts</h1>
+                        <h1 className="text-3xl font-bold text-black text-opacity-70 dark:text-white mt-8 mb-12 text-center">eri's dev blog</h1>
 
-                        <Timeline
-                            items={timelineItems}
-                            initialCount={5}
-                            showMoreText="Show More Posts"
-                            showLessText="Show Fewer Posts"
-                            titleClassName="text-white hover:text-blue-300"
-                            descriptionClassName="text-gray-300"
-                            dateClassName="text-gray-400"
-                            lineClassName="border-gray-700"
-                            dotClassName="bg-blue-600/80 group-hover:bg-blue-500"
-                            buttonVariant="outline"
-                            className="pb-16"
-                        />
+                        <Timeline items={timelineItems} />
                     </div>
                 </div>
             </div>
-        </HydrateClient>
-    );
+        );
+    } catch (error) {
+        console.error("Error fetching posts:", error);
+        return (
+            <div className="flex flex-col min-h-screen h-full bg-red-200 dark:bg-gray-900 dark:bg-opacity-90 text-white font-mono fixed top-0 left-0 right-0 overflow-hidden">
+                <Header />
+                <div className="flex flex-1 justify-center items-center">
+                    <div className="p-8 bg-black bg-opacity-30 rounded-lg max-w-md text-center">
+                        <h1 className="text-2xl font-bold mb-4">Error Fetching Posts</h1>
+                        <p>There was an error fetching blog posts.</p>
+                        <p className="mt-4 text-sm text-gray-400">
+                            Please try again later or contact support for assistance.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        );
+    }
 }
