@@ -43,7 +43,7 @@ export default async function BlogPostPage({
 async function BlogPostContent({ slug }: { slug: string }) {
     const post = await api.post.getBySlug({ slug });
 
-    if (!post) {
+    if (!post || !post.published) {
         notFound();
     }
 

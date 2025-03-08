@@ -14,4 +14,11 @@ const globalForPrisma = globalThis as unknown as {
 
 export const db = globalForPrisma.prisma ?? createPrismaClient();
 
-if (env.NODE_ENV !== "production") globalForPrisma.prisma = db;
+if (env.NODE_ENV !== "production") {
+  globalForPrisma.prisma = db;
+
+  // Test the connection
+  db.$connect()
+    .then(() => console.log("Database connected successfully"))
+    .catch((e) => console.error("Database connection error:", e));
+}

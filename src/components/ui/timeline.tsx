@@ -10,7 +10,7 @@ import { cn } from "~/lib/utils";
 interface TimelineItem {
   date: string;
   title: string;
-  description?: string;
+  description?: string | null;
   href?: string;
   icon?: React.ReactNode;
 }
@@ -50,7 +50,7 @@ function DesktopTimelineEntry({
   dateClassName?: string;
 }) {
   return (
-    <div className="border-2 border-white border-opacity-50 rounded-lg p-4 bg-black bg-opacity-10 shadow-md">
+    <div className="border-2 border-black border-opacity-70 rounded-lg p-4 bg-black bg-opacity-10 shadow-lg hover:border-white hover:border-opacity-50 hover:shadow-md transition-all">
       <Link
         href={item.href || "#"}
         className={cn(
@@ -62,7 +62,7 @@ function DesktopTimelineEntry({
           <dt className="sr-only">Date</dt>
           <dd
             className={cn(
-              "text-base font-medium text-muted-foreground transition-colors group-hover:text-foreground",
+              "text-base font-medium text-black dark:text-white transition-colors group-hover:text-gray-800 dark:group-hover:text-gray-200",
               dateClassName
             )}
           >
@@ -78,24 +78,24 @@ function DesktopTimelineEntry({
         <div className="col-span-7 flex items-center">
           <div className="relative ml-4">
             <div
-              className={cn("h-16 border-l border-border pr-8", lineClassName)}
+              className={cn("h-16 border-l border-gray-600 pr-8", lineClassName)}
             />
             <div
               className={cn(
-                "absolute -left-1 top-[1.6875rem] flex h-5 w-5 items-center justify-center rounded-full bg-lime-300/60 transition-colors group-hover:bg-lime-300",
+                "absolute -left-1 top-[1.6875rem] flex h-5 w-5 items-center justify-center rounded-full bg-lime-500 transition-colors group-hover:bg-lime-600",
                 !item.icon && "h-2.5 w-2.5",
                 dotClassName
               )}
             >
               {item.icon && (
-                <div className="h-3 w-3 text-primary-foreground">{item.icon}</div>
+                <div className="h-3 w-3 text-black">{item.icon}</div>
               )}
             </div>
           </div>
           <div className="flex flex-col gap-1">
             <h3
               className={cn(
-                "text-xl font-medium tracking-tight text-muted-foreground transition-colors group-hover:text-foreground",
+                "text-xl font-medium tracking-tight text-black dark:text-white transition-colors group-hover:text-gray-800 dark:group-hover:text-gray-200",
                 titleClassName
               )}
             >
@@ -104,7 +104,7 @@ function DesktopTimelineEntry({
             {item.description && (
               <p
                 className={cn(
-                  "text-sm text-muted-foreground group-hover:text-muted-foreground/80",
+                  "text-sm text-gray-800 dark:text-gray-200 group-hover:text-gray-700 dark:group-hover:text-gray-300",
                   descriptionClassName
                 )}
               >
@@ -134,25 +134,25 @@ function MobileTimelineEntry({
   dateClassName?: string;
 }) {
   return (
-    <div className="border-2 border-gray-800 rounded-lg p-4 bg-black bg-opacity-25 shadow-md md:hidden">
+    <div className="border-2 border-black border-opacity-70 rounded-lg p-4 bg-black bg-opacity-25 shadow-lg hover:border-gray-800 hover:shadow-md transition-all md:hidden">
       <Link
         href={item.href || "#"}
         className={cn(
-          "flex items-center space-x-4 rounded-lg transition-colors hover:bg-muted/10 active:bg-muted/20",
+          "flex items-center space-x-4 rounded-lg transition-colors bg-muted/10 active:bg-muted/20",
           !item.href && "pointer-events-none"
         )}
       >
         <div className="relative">
-          <div className={cn("h-16 border-l border-border", lineClassName)} />
+          <div className={cn("h-16 border-l border-gray-600", lineClassName)} />
           <div
             className={cn(
-              "absolute -left-1 top-5 flex h-5 w-5 items-center justify-center rounded-full bg-lime-300/60",
+              "absolute -left-1 top-5 flex h-5 w-5 items-center justify-center rounded-full bg-lime-500",
               !item.icon && "h-2.5 w-2.5",
               dotClassName
             )}
           >
             {item.icon && (
-              <div className="h-3 w-3 text-primary-foreground">{item.icon}</div>
+              <div className="h-3 w-3 text-black">{item.icon}</div>
             )}
           </div>
         </div>
@@ -161,7 +161,7 @@ function MobileTimelineEntry({
             <dt className="sr-only">Date</dt>
             <dd
               className={cn(
-                "text-sm font-medium text-muted-foreground",
+                "text-sm font-medium text-gray-800 dark:text-gray-200",
                 dateClassName
               )}
             >
@@ -176,7 +176,7 @@ function MobileTimelineEntry({
           </dl>
           <h3
             className={cn(
-              "text-lg font-medium tracking-tight text-foreground",
+              "text-lg font-medium tracking-tight text-black dark:text-white",
               titleClassName
             )}
           >
@@ -185,7 +185,7 @@ function MobileTimelineEntry({
           {item.description && (
             <p
               className={cn(
-                "text-sm text-muted-foreground",
+                "text-sm text-gray-800 dark:text-gray-200",
                 descriptionClassName
               )}
             >
@@ -223,8 +223,8 @@ export function Timeline({
   const remainingItems = sortedItems.slice(initialCount);
 
   return (
-    <div className={cn("mx-5 max-w-2xl md:mx-auto", className)}>
-      <div className="md:translate-x-28">
+    <div className={cn("max-w-2xl mx-auto", className)}>
+      <div>
         <ul className="space-y-8">
           {initialItems.map((item, index) => (
             <motion.li
@@ -297,7 +297,7 @@ export function Timeline({
           <Button
             variant={buttonVariant}
             size={buttonSize}
-            className="gap-2 bg-lime-300 hover:bg-lime-400 text-black"
+            className="gap-2 bg-lime-600 hover:bg-lime-700 text-white font-medium"
             onClick={() => setShowAll(!showAll)}
           >
             {showAll ? showLessText : showMoreText}

@@ -1,17 +1,7 @@
 import { type Post } from "@prisma/client";
-import { format } from "date-fns";
-import { api } from "~/trpc/server";
-import { HydrateClient } from "~/trpc/server";
-import Link from "next/link";
-import { Moon } from "lucide-react";
 import Header from "~/app/_components/header";
 
-
 export default function Post({ post }: { post: Post }) {
-
-    const posts = await api.post.getAll();
-
-
     return (
         <div className="flex flex-col min-h-screen h-full bg-red-200 dark:bg-gray-900 dark:bg-opacity-90 text-white font-mono fixed top-0 left-0 right-0 overflow-hidden">
             <Header />

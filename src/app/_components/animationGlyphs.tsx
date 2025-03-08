@@ -47,17 +47,33 @@ interface TinyGlyphData {
 
 export default function Glyphs(): ReactNode {
     const [seed, setSeed] = useState<number>(28);
+    const [isMobile, setIsMobile] = useState(false);
 
     useEffect(() => {
         // Generate a new random seed on each client-side render
         setSeed(Math.floor(Math.random() * 10000));
     }, []);
 
+    useEffect(() => {
+        const checkMobile = () => {
+            setIsMobile(window.innerWidth < 768);
+        };
+
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
+
     // Generate random values with the current seed
     const random = seededRandom(seed);
 
+    // Adjust glyph counts for mobile
+    const glyphCount = isMobile ? 15 : 40;
+    const mediumGlyphCount = isMobile ? 10 : 30;
+    const tinyGlyphCount = isMobile ? 30 : 100;
+
     // Pre-generate all random values
-    const glyphsData: GlyphData[] = Array.from({ length: 40 }).map(() => ({
+    const glyphsData: GlyphData[] = Array.from({ length: glyphCount }).map(() => ({
         left: Math.floor(random() * 95) + 2,
         top: Math.floor(random() * 500) + 100, // Expanded vertical range to distribute throughout the page
         size: Math.floor(random() * 6) + 4,
@@ -92,7 +108,7 @@ export default function Glyphs(): ReactNode {
             return hoverColors[Math.floor(random() * hoverColors.length)];
         })() || "hover:text-white dark:hover:text-white"
     }));
-    const mediumGlyphsData: MediumGlyphData[] = Array.from({ length: 30 }).map(() => ({
+    const mediumGlyphsData: MediumGlyphData[] = Array.from({ length: mediumGlyphCount }).map(() => ({
         left: Math.floor(random() * 95) + 2,
         top: Math.floor(random() * 600) - 10,
         size: Math.floor(random() * 3) + 4,
@@ -106,7 +122,7 @@ export default function Glyphs(): ReactNode {
         })()
     }));
 
-    const tinyGlyphsData: TinyGlyphData[] = Array.from({ length: 100 }).map(() => ({
+    const tinyGlyphsData: TinyGlyphData[] = Array.from({ length: tinyGlyphCount }).map(() => ({
         left: Math.floor(random() * 98) + 1,
         top: Math.floor(random() * 600) + 10,
         size: (random() * 1.5 + 0.5).toFixed(1),
