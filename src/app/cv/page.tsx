@@ -5,7 +5,7 @@ import Link from "next/link"
 import { useRouter } from "next/navigation"
 import styles from "./cv-page.module.css"
 // Import html2pdf dynamically since it's a client-side library
-import dynamic from "next/dynamic"
+
 
 export default function Home() {
     const router = useRouter()
@@ -234,13 +234,13 @@ export default function Home() {
                     </div>
 
                     <div className={styles.contactInfo}>
-                        <Link href="mailto:eri@erosika.digital" className={styles.contactItem}>
+                        <Link href={`mailto:${process.env.NEXT_PUBLIC_EMAIL}`} className={styles.contactItem}>
                             <Mail size={14} className={styles.contactIcon} />
-                            <span>eri@erosika.digital</span>
+                            <span>{process.env.NEXT_PUBLIC_EMAIL}</span>
                         </Link>
-                        <Link href="tel:+17325673556" className={styles.contactItem}>
+                        <Link href={`tel:${process.env.NEXT_PUBLIC_PHONE}`} className={styles.contactItem}>
                             <Phone size={14} className={styles.contactIcon} />
-                            <span>+1 732 567 3556</span>
+                            <span>{process.env.NEXT_PUBLIC_PHONE}</span>
                         </Link>
                         <div className={styles.contactItem}>
                             <MapPin size={14} className={styles.contactIcon} />
@@ -255,7 +255,7 @@ export default function Home() {
                     {/* Education with typewriter font and background */}
                     <div className={styles.educationContainer}>
                         <div className={styles.educationBox} onClick={activateCursor}>
-                            <GraduationCap size={12} className={styles.educationIcon} />
+                            <GraduationCap size={14} className={styles.educationIcon} />
                             <span className={styles.educationLabel}>$ Education:</span>
                             <span className={styles.educationText}>Columbia University</span>
                             <span className={styles.educationSeparator}>|</span>
