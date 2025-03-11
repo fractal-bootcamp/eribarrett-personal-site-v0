@@ -1,0 +1,16 @@
+/* Global styles */
+html,
+body {
+    height: auto;
+    min-height: 100%;
+}
+
+@media print {
+    @page {
+        margin: 2cm;
+    }
+
+    body {
+        print-color-adjust: exact;
+    }
+}
