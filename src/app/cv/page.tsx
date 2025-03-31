@@ -1,15 +1,17 @@
 "use client"
 import { useState, useEffect, useRef } from "react"
-import { Download, Printer, Mail, Phone, MapPin, AtSign, GraduationCap, ArrowLeft } from "lucide-react"
+import { Download, Printer, Mail, Phone, MapPin, AtSign, GraduationCap, ArrowLeft, Sun, Moon } from "lucide-react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import styles from "./cv-page.module.css"
+import { useTheme } from "~/context/ThemeContext"
 // Import html2pdf dynamically since it's a client-side library
 
 
 export default function Home() {
     const router = useRouter()
     const [isLoaded, setIsLoaded] = useState(false)
+    const { theme, toggleTheme } = useTheme()
     const containerRef = useRef<HTMLDivElement>(null)
     const [scrollPosition, setScrollPosition] = useState(0)
 
@@ -193,11 +195,20 @@ export default function Home() {
     }
 
     return (
-        <div ref={containerRef} className={styles.cvContainer}>
+        <div ref={containerRef} className={`${styles.cvContainer} ${theme === "dark" ? styles.darkTheme : ""}`}>
             {/* Back button */}
             <button onClick={handleBack} className={styles.backButton}>
                 <ArrowLeft size={16} className={styles.backButtonIcon} />
                 <span>Back</span>
+            </button>
+
+            {/* Theme toggle button */}
+            <button onClick={toggleTheme} className={styles.themeToggle} aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}>
+                {theme === 'light' ? (
+                    <Moon size={20} className={styles.themeIcon} />
+                ) : (
+                    <Sun size={20} className={styles.themeIcon} />
+                )}
             </button>
 
             {/* Floating geometric elements with parallax */}
@@ -259,7 +270,7 @@ export default function Home() {
                             <span className={styles.educationLabel}>$ Education:</span>
                             <span className={styles.educationText}>Columbia University</span>
                             <span className={styles.educationSeparator}>|</span>
-                            <span className={styles.educationText}>BA in Anthropology & Visual Arts</span>
+                            <span className={styles.educationText}>BA in Anthropology & Computer Music</span>
 
                             {/* VIM cursor */}
                             {cursorActive && (
@@ -339,7 +350,7 @@ export default function Home() {
                             <div className={styles.experienceTitle}>
                                 <h3 className={styles.experienceName}>Web Administrator</h3>
                                 <span className={styles.experienceSeparator}>|</span>
-                                <span className={styles.experienceCompany}>MELA (melafoundation.org), NYC</span>
+                                <span className={styles.experienceCompany}><a href="https://melafoundation.org" target="_blank" rel="noopener noreferrer">MELA (melafoundation.org)</a>, NYC</span>
                             </div>
                             <div className={styles.experiencePeriod}>2018 - 2024</div>
                         </div>
@@ -359,7 +370,7 @@ export default function Home() {
                                 <span className={styles.experienceSeparator}>|</span>
                                 <span className={styles.experienceCompany}>High Vibe, NYC</span>
                             </div>
-                            <div className={styles.experiencePeriod}>2021 - 2022</div>
+                            <div className={styles.experiencePeriod}>2019 - 2020</div>
                         </div>
                         <ul className={styles.experienceList}>
                             <li>Restructured WordPress site architecture with custom e-commerce components</li>
@@ -376,7 +387,7 @@ export default function Home() {
                                 <span className={styles.experienceSeparator}>|</span>
                                 <span className={styles.experienceCompany}>Yanni Posnakoff Trust, NYC</span>
                             </div>
-                            <div className={styles.experiencePeriod}>2019 - 2021</div>
+                            <div className={styles.experiencePeriod}>2017 - 2019</div>
                         </div>
                         <ul className={styles.experienceList}>
                             <li>Built custom database system for artwork cataloging and retrieval</li>
@@ -423,7 +434,7 @@ export default function Home() {
 
                         <div className={styles.techStackItem}>
                             <p className={styles.techStackHeader}>$ Databases & Backends:</p>
-                            <p className={styles.techStackContent}>Prisma, DrizzleORM, Supabase, PostgreSQL, Firebase, tRPC</p>
+                            <p className={styles.techStackContent}>Prisma, DrizzleORM, Supabase, PostgreSQL, Firebase, Redis</p>
                         </div>
 
                         <div className={styles.techStackItem}>

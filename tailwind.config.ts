@@ -7,10 +7,8 @@ export default {
 	theme: {
 		extend: {
 			fontFamily: {
-				sans: [
-					'var(--font-geist-sans)',
-					...fontFamily.sans
-				]
+				sans: "var(--font-sans)",
+				mono: "var(--font-mono)",
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
@@ -67,7 +65,19 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				// CV color palette
+				cv: {
+					pink: '#c0447a',
+					'pink-light': 'rgba(192, 68, 122, 0.1)',
+					'pink-medium': 'rgba(192, 68, 122, 0.4)',
+					'yellow': '#f5e6a8',
 				}
+			},
+			letterSpacing: {
+				'title': 'var(--letter-spacing-title)',
+				'heading': 'var(--letter-spacing-heading)',
+				'header': 'var(--letter-spacing-header)',
 			},
 			keyframes: {
 				marquee: {

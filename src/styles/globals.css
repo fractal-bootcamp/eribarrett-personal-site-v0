@@ -37,7 +37,14 @@
     --sidebar-accent: 240 4.8% 95.9%;
     --sidebar-accent-foreground: 240 5.9% 10%;
     --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%
+    --sidebar-ring: 217.2 91.2% 59.8%;
+
+    /* Font-related variables */
+    --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+    --font-mono: var(--font-courier), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Courier New", monospace;
+    --letter-spacing-title: -0.025em;
+    --letter-spacing-heading: 0.01em;
+    --letter-spacing-header: 0.03em;
   }
 
   .dark {
@@ -78,6 +85,10 @@
 
 .header {
   @apply fixed top-0 left-0 w-full h-1.5;
+  font-family: var(--font-sans);
+  font-weight: 300;
+  letter-spacing: var(--letter-spacing-header);
+  text-transform: lowercase;
 }
 
 @layer base {
@@ -87,7 +98,32 @@
 
   body {
     @apply bg-background text-foreground;
+    font-family: var(--font-sans);
+    font-weight: 400;
+    letter-spacing: var(--letter-spacing-heading);
+  }
 
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-sans);
+    font-weight: 300;
+    letter-spacing: var(--letter-spacing-title);
+    text-transform: lowercase;
+  }
+
+  h1 {
+    font-weight: 300;
+    letter-spacing: var(--letter-spacing-header);
+  }
+
+  code,
+  pre,
+  .terminal-text {
+    font-family: var(--font-mono);
   }
 }
 
@@ -111,3 +147,30 @@ body {
 }
 
 /* Add any other global styles below */
+
+/* CV-inspired styles */
+.section-title {
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #c0447a;
+  padding-bottom: 0.25rem;
+  border-bottom: 1px solid rgba(192, 68, 122, 0.4);
+}
+
+.accent-text {
+  color: #c0447a;
+}
+
+.terminal-container {
+  font-family: var(--font-mono);
+  background-color: rgba(0, 0, 0, 0.05);
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+}
+
+.terminal-prompt {
+  color: #c0447a;
+  margin-right: 0.5rem;
+}
