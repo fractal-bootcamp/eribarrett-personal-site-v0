@@ -7,6 +7,11 @@
     overflow: visible;
 }
 
+:global(.dark) .cvContainer,
+.darkTheme {
+    background-color: #1f2937;
+}
+
 .floatingCircle {
     position: absolute;
     top: 5%;
@@ -43,6 +48,12 @@
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
+:global(.dark) .cvContent,
+.darkTheme .cvContent {
+    background-color: #111827;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
 .actionButtons {
     position: absolute;
     top: 1.5rem;
@@ -60,6 +71,11 @@
 
 .actionButton:hover {
     background-color: rgba(192, 68, 122, 0.1);
+}
+
+:global(.dark) .actionButton:hover,
+.darkTheme .actionButton:hover {
+    background-color: rgba(192, 68, 122, 0.2);
 }
 
 .actionButtonIcon {
@@ -83,6 +99,11 @@
     color: black;
 }
 
+:global(.dark) .name,
+.darkTheme .name {
+    color: white;
+}
+
 .title {
     font-size: 0.875rem;
     color: #c0447a;
@@ -100,6 +121,11 @@
     color: black;
     flex-wrap: wrap;
     margin-bottom: 0.75rem;
+}
+
+:global(.dark) .contactInfo,
+.darkTheme .contactInfo {
+    color: white;
 }
 
 .contactItem {
@@ -134,6 +160,11 @@
     cursor: pointer;
 }
 
+:global(.dark) .educationBox,
+.darkTheme .educationBox {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
 .educationIcon {
     color: #c0447a;
     margin-right: 0.375rem;
@@ -152,6 +183,11 @@
     font-weight: 700;
 }
 
+:global(.dark) .educationText,
+.darkTheme .educationText {
+    color: white;
+}
+
 .educationSeparator {
     margin: 0 0.375rem;
     color: #c0447a;
@@ -166,6 +202,11 @@
     font-size: 0.75rem;
     font-family: "Courier New", monospace;
     color: rgba(0, 0, 0, 0.6);
+}
+
+:global(.dark) .vimModeText,
+.darkTheme .vimModeText {
+    color: rgba(255, 255, 255, 0.6);
 }
 
 .sectionContainer {
@@ -186,6 +227,11 @@
 .sectionText {
     font-size: 0.875rem;
     color: black;
+}
+
+:global(.dark) .sectionText,
+.darkTheme .sectionText {
+    color: white;
 }
 
 .experienceItem {
@@ -209,6 +255,11 @@
     font-weight: 500;
 }
 
+:global(.dark) .experienceName,
+.darkTheme .experienceName {
+    color: white;
+}
+
 .experienceSeparator {
     margin: 0 0.5rem;
     color: #c0447a;
@@ -219,9 +270,19 @@
     font-style: italic;
 }
 
+:global(.dark) .experienceCompany,
+.darkTheme .experienceCompany {
+    color: white;
+}
+
 .experiencePeriod {
     font-size: 0.875rem;
     color: black;
+}
+
+:global(.dark) .experiencePeriod,
+.darkTheme .experiencePeriod {
+    color: white;
 }
 
 .experienceList {
@@ -230,6 +291,11 @@
     font-size: 0.875rem;
     row-gap: 0.125rem;
     color: black;
+}
+
+:global(.dark) .experienceList,
+.darkTheme .experienceList {
+    color: white;
 }
 
 .techStackGrid {
@@ -248,19 +314,16 @@
     color: #c0447a;
     font-size: 0.875rem;
     margin-bottom: 0.125rem;
-    font-weight: 700;
-    display: inline-block;
-    padding: 0 0.25rem;
-    background-color: rgba(0, 0, 0, 0.05);
-    border-radius: 0.25rem;
 }
 
-.techStackContent {
+.techStackList {
     font-size: 0.875rem;
     color: black;
-    margin-left: 1rem;
-    border-left: 1px solid rgba(192, 68, 122, 0.4);
-    padding-left: 0.5rem;
+}
+
+:global(.dark) .techStackList,
+.darkTheme .techStackList {
+    color: white;
 }
 
 .footer {
@@ -275,6 +338,11 @@
     font-weight: 700;
 }
 
+:global(.dark) .footerText,
+.darkTheme .footerText {
+    color: rgba(255, 255, 255, 0.6);
+}
+
 .footerDate {
     display: block;
     color: #c0447a;
@@ -284,6 +352,11 @@
     display: inline-block;
     padding: 0.125rem 0.5rem;
     border-radius: 0.25rem;
+}
+
+:global(.dark) .footerDate,
+.darkTheme .footerDate {
+    background-color: rgba(255, 255, 255, 0.05);
 }
 
 .lightElement {
@@ -307,6 +380,11 @@
     z-index: 100;
     transform: translateY(-50%);
     animation: blink 1.06s step-end infinite;
+}
+
+:global(.dark) .vimCursor,
+.darkTheme .vimCursor {
+    background-color: white;
 }
 
 @keyframes fadeInUp {
@@ -352,36 +430,84 @@
     .vimModeInfo {
         display: none !important;
     }
+
+    .themeToggle {
+        display: none !important;
+    }
 }
 
 .backButton {
-    position: absolute;
+    position: fixed;
     top: 1.5rem;
     left: 1.5rem;
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.5rem 0.75rem;
-    border-radius: 9999px;
-    transition: all 0.2s ease;
+    padding: 0.5rem 1rem;
+    background-color: white;
     border: 1px solid #c0447a;
+    border-radius: 9999px;
     color: #c0447a;
     font-size: 0.875rem;
-    font-weight: 500;
-    background: transparent;
+    transition: all 0.2s;
     cursor: pointer;
+}
+
+:global(.dark) .backButton,
+.darkTheme .backButton {
+    background-color: #111827;
+    color: white;
+    border-color: #c0447a;
 }
 
 .backButton:hover {
     background-color: rgba(192, 68, 122, 0.1);
-    transform: translateX(-2px);
+}
+
+:global(.dark) .backButton:hover,
+.darkTheme .backButton:hover {
+    background-color: rgba(192, 68, 122, 0.2);
 }
 
 .backButtonIcon {
     color: #c0447a;
-    transition: transform 0.2s ease;
 }
 
-.backButton:hover .backButtonIcon {
-    transform: translateX(-2px);
+/* Theme toggle button */
+.themeToggle {
+    position: fixed;
+    top: 1.5rem;
+    right: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    background-color: white;
+    border: 1px solid #c0447a;
+    border-radius: 9999px;
+    color: #c0447a;
+    transition: all 0.2s;
+    cursor: pointer;
+    z-index: 10;
+}
+
+:global(.dark) .themeToggle,
+.darkTheme .themeToggle {
+    background-color: #111827;
+    color: white;
+}
+
+.themeToggle:hover {
+    background-color: rgba(192, 68, 122, 0.1);
+    transform: rotate(15deg);
+}
+
+:global(.dark) .themeToggle:hover,
+.darkTheme .themeToggle:hover {
+    background-color: rgba(192, 68, 122, 0.2);
+}
+
+.themeIcon {
+    color: #c0447a;
 }

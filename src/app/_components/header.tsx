@@ -4,10 +4,12 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useTheme } from "~/context/ThemeContext";
 import { TooltipProvider } from "~/components/ui/tooltip";
+import { usePathname } from "next/navigation";
 
 export default function Header() {
     const [isNarrow, setIsNarrow] = useState(false);
     const { theme, toggleTheme } = useTheme();
+    const pathname = usePathname();
 
     useEffect(() => {
         const handleResize = () => {
@@ -24,46 +26,37 @@ export default function Header() {
         return () => window.removeEventListener("resize", handleResize);
     }, []);
 
+    const isActive = (path: string) => {
+        return pathname === path;
+    };
+
     return (
         <TooltipProvider>
             <header className={`${isNarrow ? 'fixed top-0 left-0 right-0 z-50' : 'flex'} items-center border-b border-gray-800 bg-red-200 transition-all duration-300 dark:bg-gray-900 dark:bg-opacity-90`}>
                 <div className={`w-[70px] h-[70px] bg-[url('/images/princess.png')] flex items-center justify-center bg-cover bg-center border-r border-gray-800 hover:bg-opacity-70 transition-shadow ${isNarrow ? 'hidden' : ''}`}>
                 </div>
-                <Link href="/" className="flex-1 flex justify-center text-xl tracking-wider py-5 border-x-yellow-200 border-x-8 border-b-2 border-b-gray-800 bg-black bg-opacity-40 hover:bg-opacity-70 transition-shadow">
+                <Link href="/" className="flex-1 flex justify-center text-xl tracking-header py-5 border-x-yellow-200 border-x-8 border-b-2 border-b-gray-800 bg-black bg-opacity-40 hover:bg-opacity-70 transition-shadow font-light lowercase text-gray-900 dark:text-white">
                     e r i . d e v
                 </Link>
-                <div className="flex flex-wrap justify-center bg-red-200 items-center gap-2 sm:gap-4 px-3 sm:px-6 border-l border-b border-gray-800 h-auto min-h-[70px]">
+                <div className="flex flex-wrap justify-center items-center gap-4 sm:gap-6 px-3 sm:px-6 border-l border-b border-gray-800 h-auto min-h-[70px] font-mono">
                     <Link
                         href="/development"
-                        className="border-dashed border-2 rounded-full bg-black bg-opacity-25 border-gray-600 px-3 sm:px-5 py-1 sm:py-2 text-xs sm:text-sm hover:bg-black hover:bg-opacity-60 transition-colors"
+                        className={`text-xs sm:text-sm lowercase font-light tracking-wide hover:text-blue-400 transition-colors ${isActive('/development') ? 'italic' : ''} text-gray-900 dark:text-white`}
                     >
-                        DEVELOPMENT
+                        &gt; development
                     </Link>
                     <Link
                         href="/cv"
-                        className="border-dashed border-2 rounded-full bg-black bg-opacity-25 border-gray-600 px-3 sm:px-5 py-1 sm:py-2 text-xs sm:text-sm hover:bg-black hover:bg-opacity-60 transition-colors"
+                        className={`text-xs sm:text-sm lowercase font-light tracking-wide hover:text-blue-400 transition-colors ${isActive('/cv') ? 'italic' : ''} text-gray-900 dark:text-white`}
                     >
-                        CV
+                        &gt; cv
                     </Link>
                     <Link
                         href="/blog"
-                        className="border-dashed border-2 rounded-full bg-black bg-opacity-25 border-gray-600 px-3 sm:px-5 py-1 sm:py-2 text-xs sm:text-sm hover:bg-black hover:bg-opacity-60 transition-colors"
+                        className={`text-xs sm:text-sm lowercase font-light tracking-wide hover:text-blue-400 transition-colors ${isActive('/blog') ? 'italic' : ''} text-gray-900 dark:text-white`}
                     >
-                        BLOG
+                        &gt; blog
                     </Link>
-                    {/* <Link
-                            href="/music"
-                            className="border-dashed border-2 rounded-full bg-black bg-opacity-25 border-gray-600 px-3 sm:px-5 py-1 sm:py-2 text-xs sm:text-sm hover:bg-black hover:bg-opacity-60 transition-colors"
-                        >
-                            MUSIC
-                        </Link> */}
-                    {/* <Link
-                            href="/visualize"
-                            className="border-dashed border-2 rounded-full bg-black bg-opacity-25 border-gray-600 px-3 sm:px-5 py-1 sm:py-2 text-xs sm:text-sm hover:bg-black hover:bg-opacity-60 transition-colors"
-                        >
-                            VISUALIZE
-                        </Link> */}
-
                 </div>
                 <div className={`w-[70px] h-[70px] border-l border-gray-800 hover:bg-black hover:bg-opacity-70 transition-shadow ${isNarrow ? 'hidden sm:block' : ''}`}>
                     <div className="w-full h-full bg-black bg-opacity-40 flex items-center justify-center border-l-4 border-l-yellow-200 border-b-black border-b-2">

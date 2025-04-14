@@ -7,6 +7,7 @@ import { Marquee } from "~/components/magicui/marquee";
 import localFont from 'next/font/local'
 import { useEffect, useState } from "react"
 import Glyphs from "./_components/animationGlyphs";
+import UniverseCard from "~/components/ui/universe-card";
 // import { TweetCard } from "~/components/ui/tweet-card";
 
 
@@ -98,25 +99,33 @@ export default function Home() {
             className="flex flex-col"
           >
             <ScrollArea className="h-full">
-              <Marquee className="[--duration:1000s]">
-                <div className="flex space-x-0">
-                  {Array.from({ length: 100 }).map((_, index) => (
-                    <Image
-                      key={index}
-                      src="/images/spy.png"
-                      className="h-50"
-                      alt="Spy image"
-                      width={400}
-                      height={800}
-                      style={{ opacity: 0.5 }}
-                    />
-                  ))}
+              <div className="relative">
+                <div className="relative z-0">
+                  <Marquee className="[--duration:1000s]">
+                    <div className="flex space-x-0">
+                      {Array.from({ length: 100 }).map((_, index) => (
+                        <Image
+                          key={index}
+                          src="/images/spy.png"
+                          className="h-50"
+                          alt="Spy image"
+                          width={400}
+                          height={800}
+                          style={{ opacity: 0.5 }}
+                        />
+                      ))}
+                    </div>
+                  </Marquee>
+
+                  {/* Enceladian Glyphs */}
+                  <Glyphs />
                 </div>
-              </Marquee>
 
-              {/* Enceladian Glyphs */}
-              <Glyphs />
-
+                {/* Floating Universe Card */}
+                <div className="absolute inset-0 z-10">
+                  <UniverseCard />
+                </div>
+              </div>
             </ScrollArea>
           </div>
 
@@ -126,7 +135,7 @@ export default function Home() {
         </div>
 
         {/* Footer with Tweet Card */}
-        <div className="absolute bottom-8 left-0 right-0 p-4 text-sm">
+        {/* <div className="absolute bottom-8 left-0 right-0 p-4 text-sm">
           <div className="flex flex-col gap-4">
             <div className="text-pink-400 mb-2">
               <span>&gt; about</span>
@@ -140,23 +149,23 @@ export default function Home() {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
 
         {/* Right Sidebar - hide on mobile */}
-        {!isMobile && (
-          <div className="w-[400px] border-l border-gray-800 overflow-hidden relative flex flex-col fixed right-0 top-0 bottom-0 z-10 min-w-[200px] max-w-[300px]">
-            <div className="justify-center bg-black bg-opacity-40 dark:bg-black dark:bg-opacity-80 top-0 right-0 border-b-2 border-yellow-200 w-full px-4 py-2 text-gray-600">
-              <span>+</span>
-            </div>
-            <div className="flex-1 overflow-y-auto relative text-[10px] leading-[10px] text-gray-500 pl-2 pt-1 font-mono bg-cover bg-center bg-no-repeat">
-              {sidebarData.map((line, i) => (
-                <div key={i} className="whitespace-nowrap">
-                  {line}
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
+        {/* {!isMobile && (
+          // <div className="w-[400px] border-l border-gray-800 overflow-hidden relative flex flex-col fixed right-0 top-0 bottom-0 z-10 min-w-[200px] max-w-[300px]">
+          //   <div className="justify-center bg-black bg-opacity-40 dark:bg-black dark:bg-opacity-80 top-0 right-0 border-b-2 border-yellow-200 w-full px-4 py-2 text-gray-600">
+          //     <span>+</span>
+          //   </div>
+          //   <div className="flex-1 overflow-y-auto relative text-[10px] leading-[10px] text-gray-500 pl-2 pt-1 font-mono bg-cover bg-center bg-no-repeat">
+          //     {sidebarData.map((line, i) => (
+          //       <div key={i} className="whitespace-nowrap">
+          //         {line}
+          //       </div>
+          //     ))}
+          //   </div>
+          // </div>
+        )} */}
       </div>
     </div>
   )
