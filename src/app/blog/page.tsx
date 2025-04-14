@@ -3,6 +3,7 @@ import { api, HydrateClient } from "~/trpc/server";
 import Header from "../_components/header";
 import { Timeline } from "~/components/ui/timeline";
 
+export const dynamic = 'force-dynamic';
 
 //function for creating slug
 

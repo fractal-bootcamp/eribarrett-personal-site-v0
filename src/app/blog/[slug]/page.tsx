@@ -4,6 +4,8 @@ import Post from "./post";
 import { Suspense } from "react";
 import Header from "~/app/_components/header";
 
+export const dynamic = 'force-dynamic';
+
 type Params = Promise<{ slug: string }>;
 
 export const generateMetadata = async ({
