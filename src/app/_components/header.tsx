@@ -45,12 +45,12 @@ export default function Header() {
                     >
                         &gt; development
                     </Link>
-                    <Link
+                    {/* <Link
                         href="/cv"
                         className={`text-xs sm:text-sm lowercase font-light tracking-wide hover:text-blue-400 transition-colors ${isActive('/cv') ? 'italic' : ''} text-gray-900 dark:text-white`}
                     >
                         &gt; cv
-                    </Link>
+                    </Link> */}
                     <Link
                         href="/blog"
                         className={`text-xs sm:text-sm lowercase font-light tracking-wide hover:text-blue-400 transition-colors ${isActive('/blog') ? 'italic' : ''} text-gray-900 dark:text-white`}
